@@ -35,7 +35,7 @@
   <label>Flight Number (between 10 and 9999):
     <input type="number" name="flightNo" required>
   </label><br>
-  <label>Departure:
+  <label>Departure Date:
     <input type="datetime-local" name="departs" value="<%= (new Date(new Date().setFullYear(new Date().getFullYear() + 1))).toISOString().slice(0, 16) %>">
   </label><br>
   <button type="submit">Add Flight</button>
