@@ -9,7 +9,7 @@ module.exports = {
 
 async function index(req, res) {
   try {
-    const flights = await Flight.find({}).sort({ departs: 'asc' }); // Sorting flights by departure date in descending order
+    const flights = await Flight.find({}).sort({ departs: 'asc' }); 
     res.render('flights/index', { flights });
   } catch (err) {
     console.error(err);
@@ -18,9 +18,19 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const flight = await Flight.findById(req.params.id);
-  res.render('flights/show', { title: 'Flight Detail', flight });
+  try {
+    const flight = await Flight.findById(req.params.id);
+    if (flight && flight.destinations) {
+      // Sort the destinations array by 'arrival' date in ascending order
+      flight.destinations.sort((a, b) => new Date(a.arrival) - new Date(b.arrival));
+    }
+    res.render('flights/show', { title: 'Flight Detail', flight });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving flight from database');
+  }
 }
+
 
 function newFlight(req, res) {
   // We'll want to be able to render an errorMsg if the create action fails
