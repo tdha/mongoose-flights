@@ -5,22 +5,38 @@
   <label>Airline:
     <!-- <input type="text" name="airline"> -->
     <select name="airline">
+        <option value="Alaska">Alaska Airlines</option>
+        <option value="Allegiant">Allegiant Air</option>
         <option value="American" selected>American</option>
+        <option value="Delta">Delta Air Lines</option>
+        <option value="Frontier">Frontier Airlines</option>
+        <option value="Hawaiian">Hawaiian Airlines</option>
+        <option value="JetBlue">JetBlue</option>
         <option value="Southwest">Southwest</option>
         <option value="United">United</option>
     </select>
   </label><br>
   <label>Airport:
     <select name="airport">
+      <option value="ATL">ATL</option>
       <option value="AUS">AUS</option>
-      <option value="DFW">DFW</option>
+      <option value="CLT">CLT</option>
       <option value="DEN" selected>DEN</option>
+      <option value="DFW">DFW</option>
+      <option value="JFK">JFK</option>
+      <option value="LAS">LAS</option>
       <option value="LAX">LAX</option>
+      <option value="MCO">MCO</option>
+      <option value="ORD">ORD</option>
       <option value="SAN">SAN</option>
+      <option value="SEA">SEA</option>
     </select>
   </label><br>
   <label>Flight Number (between 10 and 9999):
     <input type="number" name="flightNo" required>
+  </label><br>
+  <label>Departure:
+    <input type="datetime-local" name="departs" value="<%= (new Date(new Date().setFullYear(new Date().getFullYear() + 1))).toISOString().slice(0, 16) %>">
   </label><br>
   <button type="submit">Add Flight</button>
 </form>
