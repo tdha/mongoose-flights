@@ -25,7 +25,6 @@ const flightSchema = new mongoose.Schema({
         default: () => new Date().setFullYear(new Date().getFullYear() + 1)
     },
 
-
 }, {
   timestamps: true
 });

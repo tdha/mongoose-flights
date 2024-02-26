@@ -6,9 +6,19 @@ module.exports = {
   create
 };
 
+// async function index(req, res) {
+//   const flights = await Flight.find({});
+//   res.render('flights/index', { flights });
+// }
+
 async function index(req, res) {
-  const flights = await Flight.find({});
-  res.render('flights/index', { flights });
+  try {
+    const flights = await Flight.find({}).sort({ departs: 'asc' }); // Sorting flights by departure date in descending order
+    res.render('flights/index', { flights });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving flights from database');
+  }
 }
 
 function newFlight(req, res) {
