@@ -14,27 +14,17 @@
 <hr>
 
 <h2>Add Destinations</h2>
-<form id="add-destination-form" method="POST"
-  action="/flights/<%= flight._id %>/destinations">
+<form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations">
   <label>Airport:
     <select name="airport">
-      <option value="ATL">ATL</option>
-      <option value="AUS">AUS</option>
-      <option value="CLT">CLT</option>
-      <option value="DEN">DEN</option>
-      <option value="DFW">DFW</option>
-      <option value="JFK">JFK</option>
-      <option value="LAS">LAS</option>
-      <option value="LAX">LAX</option>
-      <option value="MCO">MCO</option>
-      <option value="ORD">ORD</option>
-      <option value="SAN">SAN</option>
-      <option value="SEA">SEA</option>
+      <% availableAirports.forEach(function(airport) { %>
+        <option value="<%= airport %>"><%= airport %></option>
+      <% }); %>
     </select>
   </label><br>
   <label>Arrival Date:
-    <input type="datetime-local" name="arrival" value="<%= new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().slice(0, 16) %>">
-</label><br>
+    <input type="datetime-local" name="arrival" value="<%= new Date().toISOString().slice(0, 16) %>">
+  </label><br>
   <input type="submit" value="Add Destination">
 </form>
 
