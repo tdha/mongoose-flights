@@ -11,16 +11,35 @@
     <div><%= flight.departs %></div>
 </section>
 
-<hr>
-
-<!-- <form action="/tickets/new/<%= flight._id %>">
-    <a href="../tickets/new.ejs/"><button>Add Ticket</button></a>
-</form> -->
-<a href="/flights/<%= flight._id %>/tickets/new"><button>Add Ticket</button></a>
+<h2>Tickets</h2>
+<form action="/flights/<%= flight._id %>/tickets/new" method="GET">
+    <button>Add Ticket</button>
+</form>
 
 <hr>
 
-<h2>Add Destinations</h2>
+<% if (flight.destinations.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Seat</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tickets.forEach(function(t) { %>
+          <tr>
+            <td><%= t.seat %></td>
+            <td><%= t.price %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <h5>No tickets added.</h5>
+  <% } %>
+
+<h2>Destinations</h2>
 <form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations">
   <label>Airport:
     <select name="airport">

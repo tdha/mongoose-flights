@@ -6,12 +6,12 @@ const ticketsController = require('../controllers/tickets');
 
 // GET /tickets/new (new functionality)
 // router.get('/tickets/new', ticketsController.new);
-router.get('/flights/:flightId/tickets/new', ticketsController.new);
+router.get('/flights/:id/tickets/new', ticketsController.new);
 
 // POST /tickets (create functionality)
-router.post('/tickets', ticketsController.create);
+// router.post('/tickets', ticketsController.create);
 
 // POST /flights/:id/tickets
-router.post('/flights/:id/tickets', ticketsController.addToFlight);
+router.post('/flights/:id/tickets', ticketsController.create);
 
 module.exports = router;
