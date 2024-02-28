@@ -1,4 +1,5 @@
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket');
 const allAirports = ['ATL', 'AUS', 'CLT', 'DFW', 'DEN', 'JFK', 'LAS', 'LAX', 'MCO', 'ORD', 'SAN', 'SEA'];
 
 
@@ -19,44 +20,17 @@ async function index(req, res) {
   }
 }
 
-// async function show(req, res) {
-//   try {
-//     const flight = await Flight.findById(req.params.id);
-//     if (flight && flight.destinations) {
-//       // Sort the destinations array by 'arrival' date in ascending order
-//       flight.destinations.sort((a, b) => new Date(a.arrival) - new Date(b.arrival));
-//     }
-//     res.render('flights/show', { title: 'Flight Detail', flight });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Error retrieving flight from database');
-//   }
-// }
-
-// async function show(req, res) {
-//   try {
-//     const flight = await Flight.findById(req.params.id);
-//     const usedAirports = flight.destinations.map(d => d.airport);
-//     if (flight.airport) {
-//       usedAirports.push(flight.airport); // Exclude the flight's own airport
-//     }
-//     const availableAirports = allAirports.filter(airport => !usedAirports.includes(airport));
-    
-//     res.render('flights/show', { flight, availableAirports });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Error retrieving flight from database');
-//   }
-// }
-
 async function show(req, res) {
   try {
-    let flight = await Flight.findById(req.params.id);
+    const flight = await Flight.findById(req.params.id);
     
     // Sort the destinations array by 'arrival' date in ascending order
     if (flight && flight.destinations && flight.destinations.length > 0) {
       flight.destinations.sort((a, b) => new Date(a.arrival) - new Date(b.arrival));
     }
+
+    // Fetch tickets associated with this flight
+    const tickets = await Ticket.find({flight: flight._id});
 
     const usedAirports = flight.destinations.map(d => d.airport);
     if (flight.airport) {
@@ -66,9 +40,9 @@ async function show(req, res) {
     
     // Since Mongoose objects are immutable in certain contexts, we may need to convert it to a plain object
     // if direct modifications do not reflect in the rendered view.
-    flight = flight.toObject ? flight.toObject() : flight;
+    const flightObj = flight.toObject ? flight.toObject() : flight;
     
-    res.render('flights/show', { flight, availableAirports });
+    res.render('flights/show', { flight: flightObj, availableAirports, tickets });
   } catch (err) {
     console.error(err);
     res.status(500).send('Error retrieving flight from database');

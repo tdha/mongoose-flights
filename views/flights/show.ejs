@@ -13,6 +13,13 @@
 
 <hr>
 
+<!-- <form action="/tickets/new/<%= flight._id %>">
+    <a href="../tickets/new.ejs/"><button>Add Ticket</button></a>
+</form> -->
+<a href="/flights/<%= flight._id %>/tickets/new"><button>Add Ticket</button></a>
+
+<hr>
+
 <h2>Add Destinations</h2>
 <form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations">
   <label>Airport:

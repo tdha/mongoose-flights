@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Ticket = require('../models/ticket'); 
 // optional shortcut to the mongoose.Schema class
 const Schema = mongoose.Schema;
 
